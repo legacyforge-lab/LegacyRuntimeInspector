@@ -1,0 +1,18 @@
+Legacy Runtime Inspector
+Version 0.1
+
+Initial public release.
+
+Features:
+- PE Import Table analysis
+- COM GUID detection
+- DLL dependency detection
+- OCX / ActiveX detection
+- COM registration verification
+- Runtime Knowledge Base integration
+- HTML report export (Pro)
+- TXT report export (Pro)
+- Portable configuration
+- License management
+
+Copyright © NFC LegacyForge Lab 1998-2026
