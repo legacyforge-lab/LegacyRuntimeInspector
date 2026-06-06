@@ -1,0 +1,42 @@
+Legacy Runtime Inspector
+Version 0.1
+
+Copyright © LegacyForge Lab
+All rights reserved.
+
+FREE EDITION
+
+The Free Edition may be used for:
+
+- Personal use
+- Educational use
+- Evaluation and testing purposes
+
+Commercial use is not permitted.
+
+PRO EDITION
+
+The Pro Edition is required for:
+
+- Commercial use
+- Corporate use
+- Professional consulting activities
+- HTML/TXT/CSV report export
+- Priority support
+- Knowledge Base updates
+
+DISCLAIMER
+
+This software is provided "as is", without warranty of any kind,
+express or implied, including but not limited to the warranties
+of merchantability, fitness for a particular purpose and noninfringement.
+
+In no event shall the author or copyright holder be liable for
+any claim, damages or other liability arising from the use of
+this software.
+
+CONTACT
+
+For licensing information, support and commercial use:
+
+legacyforge@nfc.it
