@@ -9,7 +9,17 @@ Diagnostic utility for VB6, COM and ActiveX runtime analysis
 Legacy Runtime Inspector helps developers, system integrators and software maintainers identify missing runtime dependencies in legacy Windows applications.
 
 ---
+## Why
 
+Legacy Runtime Inspector was designed to help maintainers of legacy Windows applications quickly identify missing runtime dependencies, COM registration issues and ActiveX components.
+
+It is particularly useful for:
+
+- VB6 applications
+- COM-based applications
+- Industrial software
+- Legacy business applications
+ 
 ## Features
 
 - Missing DLL detection
