@@ -1,10 +1,6 @@
 <p align="center">
-  <img src="Assets/logo.png" width="256">
+  <img src="Assets/logo.png" width="512">
 </p>
-
-<h1 align="center">
-Legacy Runtime Inspector
-</h1>
 
 <p align="center">
 Diagnostic utility for VB6, COM and ActiveX runtime analysis.
