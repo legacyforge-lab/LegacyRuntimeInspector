@@ -1,3 +1,15 @@
+<p align="center">
+  <img src="Assets/logo.png" width="128">
+</p>
+
+<h1 align="center">
+Legacy Runtime Inspector
+</h1>
+
+<p align="center">
+Diagnostic utility for VB6, COM and ActiveX runtime analysis.
+</p>
+
 # Legacy Runtime Inspector
 
 Diagnostic utility for VB6, COM and ActiveX runtime analysis.
@@ -71,4 +83,4 @@ legacyforge@nfc.it
 
 ---
 
-Copyright © LegacyForge Lab
+Copyright © NFC LegacyForge Lab - 1998/2006
