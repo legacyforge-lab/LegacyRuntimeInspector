@@ -3,7 +3,15 @@
 </p>
 
 <p align="center">
-Diagnostic utility for VB6, COM and ActiveX runtime analysis
+Diagnostic utility for VB6, COM and ActiveX runtime analysis.
+</p>
+
+<p align="center">
+  <a href="https://github.com/legacyforge-lab/LegacyRuntimeInspector/releases/latest">Download latest release</a>
+  ·
+  <a href="https://legacyforge-lab.github.io/LegacyRuntimeInspector/">Product page</a>
+  ·
+  <a href="https://github.com/legacyforge-lab/LegacyRuntimeInspector/issues/new">Feedback</a>
 </p>
 
 ## Why
@@ -16,7 +24,7 @@ It is particularly useful for:
 - COM-based applications
 - Industrial software
 - Legacy business applications
- 
+
 ## Features
 
 - Missing DLL detection
@@ -26,6 +34,14 @@ It is particularly useful for:
 - ActiveX dependency detection
 - Runtime Knowledge Base integration
 - Portable deployment
+
+---
+
+## Download
+
+Current version: **0.1**
+
+Download the latest ZIP package from the [Releases section](https://github.com/legacyforge-lab/LegacyRuntimeInspector/releases/latest).
 
 ---
 
@@ -60,19 +76,36 @@ It is particularly useful for:
 - Full analysis
 - Personal use
 - Evaluation use
+- No report export
 
 ### Pro Edition
+
+**Paid commercial license.**
 
 - Commercial use
 - HTML/TXT export
 - Priority support
 - Knowledge Base updates
 
+For Pro licensing and pricing information, contact:
+
+**legacyforge@nfc.it**
+
+Please include:
+
+- Your name
+- Company name, if applicable
+- Intended use
+
 ---
 
-## Download
+## Feedback
 
-Download the latest version from the Releases section.
+Found a bug or have a feature request?
+
+Open an issue here:
+
+https://github.com/legacyforge-lab/LegacyRuntimeInspector/issues/new
 
 ---
 
@@ -82,4 +115,4 @@ legacyforge@nfc.it
 
 ---
 
-Copyright © NFC LegacyForge Lab - 1998/2006
+Copyright © NFC LegacyForge Lab - 1998/2026
