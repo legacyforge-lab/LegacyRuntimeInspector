@@ -6,8 +6,6 @@
 Diagnostic utility for VB6, COM and ActiveX runtime analysis.
 </p>
 
-# Legacy Runtime Inspector
-
 Diagnostic utility for VB6, COM and ActiveX runtime analysis.
 
 Legacy Runtime Inspector helps developers, system integrators and software maintainers identify missing runtime dependencies in legacy Windows applications.
