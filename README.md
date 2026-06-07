@@ -37,6 +37,14 @@ It is particularly useful for:
 
 ---
 
+## Technical Articles
+
+- How to Find Missing OCX Files in a VB6 Application
+- Why a VB6 Application Works on One PC but Not Another
+- Understanding COM GUIDs in Legacy VB6 Applications
+
+---
+
 ## Download
 
 Current version: **0.1**
