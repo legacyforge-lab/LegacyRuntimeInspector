@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Knowledge Base - Legacy Runtime Inspector</title>
+  <meta name="description" content="Technical articles about VB6 deployment, missing OCX files, COM registration, ActiveX controls and legacy Windows runtime dependencies.">
+  <style>
+    :root { --navy:#0f2a44; --teal:#00a8b8; --text:#1f2933; --muted:#5f6b7a; --bg:#ffffff; --soft:#f5f7fa; --border:#e5e7eb; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.55; }
+    .container { max-width:980px; margin:0 auto; padding:36px 22px 60px; }
+    .topbar { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .brand { font-weight:800; color:var(--navy); text-decoration:none; font-size:1.1rem; }
+    .nav a { margin-left:16px; color:var(--teal); text-decoration:none; font-weight:700; }
+    .hero { padding:34px 0 22px; }
+    .subtitle { font-size:1.2rem; color:var(--muted); max-width:760px; }
+    h1,h2,h3 { color:var(--navy); line-height:1.2; }
+    h1 { font-size:2.2rem; margin-bottom:10px; }
+    h2 { margin-top:42px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+    a { color:var(--teal); font-weight:700; }
+    .card { background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:22px; margin:18px 0; }
+    .article-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:18px; margin-top:18px; }
+    .article-card { background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:22px; }
+    .article-card h3 { margin-top:0; }
+    .article-card p { color:var(--muted); }
+    .footer { margin-top:50px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); text-align:center; font-size:0.95rem; }
+    @media (max-width:640px) { .topbar { display:block; } .nav { margin-top:12px; } .nav a { margin-left:0; margin-right:14px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="brand" href="../index.html">Legacy Runtime Inspector</a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="../index.html#download">Download</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h1>Knowledge Base</h1>
+      <p class="subtitle">Practical articles for troubleshooting Visual Basic 6 applications, COM components, ActiveX controls, missing OCX files and legacy Windows runtime dependencies.</p>
+    </section>
+
+    <section>
+      <h2>Technical Articles</h2>
+      <div class="article-list">
+        <article class="article-card">
+          <h3><a href="missing-ocx-vb6.html">How to Find Missing OCX Files in a VB6 Application</a></h3>
+          <p>Identify missing ActiveX controls and OCX dependencies before manually registering random components.</p>
+        </article>
+
+        <article class="article-card">
+          <h3><a href="vb6-deployment-problems.html">Why a VB6 Application Works on One PC but Not Another</a></h3>
+          <p>Understand why copying only the EXE is often not enough when moving a legacy VB6 application.</p>
+        </article>
+
+        <article class="article-card">
+          <h3><a href="com-guids-explained.html">Understanding COM GUIDs in Legacy VB6 Applications</a></h3>
+          <p>Learn why embedded COM GUIDs matter and how they help identify hidden runtime dependencies.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>About Legacy Runtime Inspector</h2>
+      <div class="card">
+        <p>Legacy Runtime Inspector is a diagnostic utility for VB6, COM and ActiveX runtime analysis. It helps detect missing OCX files, DLL dependencies, COM registration issues and embedded GUID references.</p>
+        <p><a href="../index.html">Return to product page</a></p>
+      </div>
+    </section>
+
+    <footer class="footer">Copyright © NFC LegacyForge Lab - 1998/2026</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why a VB6 Application Works on One PC but Not Another</title>
+  <meta name="description" content="Common reasons why a Visual Basic 6 application works on one PC but fails on another: OCX files, COM registration, DLLs and runtime dependencies.">
+  <style>
+    :root { --navy:#0f2a44; --teal:#00a8b8; --text:#1f2933; --muted:#5f6b7a; --bg:#ffffff; --soft:#f5f7fa; --border:#e5e7eb; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.65; }
+    .container { max-width:900px; margin:0 auto; padding:36px 22px 60px; }
+    .topbar { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .brand { font-weight:800; color:var(--navy); text-decoration:none; font-size:1.1rem; }
+    .nav a { margin-left:16px; color:var(--teal); text-decoration:none; font-weight:700; }
+    h1,h2,h3 { color:var(--navy); line-height:1.2; }
+    h1 { font-size:2.15rem; margin-top:34px; }
+    h2 { margin-top:38px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+    .lead { color:var(--muted); font-size:1.15rem; }
+    .card { background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:22px; margin:24px 0; }
+    a { color:var(--teal); font-weight:700; }
+    .footer { margin-top:50px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); text-align:center; font-size:0.95rem; }
+    @media (max-width:640px) { .topbar { display:block; } .nav { margin-top:12px; } .nav a { margin-left:0; margin-right:14px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="brand" href="../index.html">Legacy Runtime Inspector</a>
+      <nav class="nav">
+        <a href="index.html">Knowledge Base</a>
+        <a href="../index.html">Home</a>
+      </nav>
+    </header>
+
+    <article>
+      <h1>Why a VB6 Application Works on One PC but Not Another</h1>
+      <p class="lead">Many organizations still rely on Visual Basic 6 applications developed years or even decades ago. A common situation is simple: the application works on the old PC but fails on the new one.</p>
+
+      <h2>The Executable Is Only Part of the System</h2>
+      <p>A VB6 executable often depends on external components that are not visible by simply looking at the EXE file.</p>
+      <p>Typical dependencies include:</p>
+      <ul>
+        <li>OCX controls</li>
+        <li>COM components</li>
+        <li>DLL libraries</li>
+        <li>Runtime files</li>
+        <li>Registry entries</li>
+      </ul>
+      <p>Copying only the EXE file is rarely sufficient.</p>
+
+      <h2>Common Failure Symptoms</h2>
+      <p>Typical errors include:</p>
+      <ul>
+        <li>Component not correctly registered</li>
+        <li>ActiveX component can't create object</li>
+        <li>Class not registered</li>
+        <li>Missing DLL</li>
+        <li>Unexpected application crash at startup</li>
+      </ul>
+
+      <h2>Hidden COM Dependencies</h2>
+      <p>Many dependencies are not obvious. A control may be referenced through a COM GUID rather than a clear file name. Without inspecting these references, troubleshooting becomes difficult.</p>
+
+      <h2>Legacy Deployment Challenges</h2>
+      <p>Modern Windows systems differ significantly from older Windows XP environments. Security settings, registry contents, installed runtimes and system components can all be different.</p>
+      <p>As a result, applications that ran for years may suddenly fail after migration.</p>
+
+      <h2>Recommended Process</h2>
+      <ol>
+        <li>Analyze the executable.</li>
+        <li>Identify dependencies.</li>
+        <li>Verify registration status.</li>
+        <li>Install or register missing components.</li>
+        <li>Test again on a clean target system.</li>
+      </ol>
+      <p>This approach is significantly more reliable than manually copying files between machines.</p>
+
+      <div class="card">
+        <p><strong>Legacy Runtime Inspector</strong> is designed to support this troubleshooting process by detecting missing runtime dependencies, COM registration issues and ActiveX components.</p>
+        <p><a href="../index.html">Download Legacy Runtime Inspector</a> · <a href="index.html">Back to Knowledge Base</a></p>
+      </div>
+    </article>
+
+    <footer class="footer">Copyright © NFC LegacyForge Lab - 1998/2026</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Understanding COM GUIDs in Legacy VB6 Applications</title>
+  <meta name="description" content="Explanation of COM GUIDs in legacy VB6 applications and why GUID analysis helps identify hidden runtime dependencies.">
+  <style>
+    :root { --navy:#0f2a44; --teal:#00a8b8; --text:#1f2933; --muted:#5f6b7a; --bg:#ffffff; --soft:#f5f7fa; --border:#e5e7eb; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.65; }
+    .container { max-width:900px; margin:0 auto; padding:36px 22px 60px; }
+    .topbar { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .brand { font-weight:800; color:var(--navy); text-decoration:none; font-size:1.1rem; }
+    .nav a { margin-left:16px; color:var(--teal); text-decoration:none; font-weight:700; }
+    h1,h2,h3 { color:var(--navy); line-height:1.2; }
+    h1 { font-size:2.15rem; margin-top:34px; }
+    h2 { margin-top:38px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+    .lead { color:var(--muted); font-size:1.15rem; }
+    .card { background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:22px; margin:24px 0; }
+    a { color:var(--teal); font-weight:700; }
+    code { background:var(--soft); padding:2px 5px; border-radius:4px; }
+    .footer { margin-top:50px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); text-align:center; font-size:0.95rem; }
+    @media (max-width:640px) { .topbar { display:block; } .nav { margin-top:12px; } .nav a { margin-left:0; margin-right:14px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="brand" href="../index.html">Legacy Runtime Inspector</a>
+      <nav class="nav">
+        <a href="index.html">Knowledge Base</a>
+        <a href="../index.html">Home</a>
+      </nav>
+    </header>
+
+    <article>
+      <h1>Understanding COM GUIDs in Legacy VB6 Applications</h1>
+      <p class="lead">Many legacy applications contain references to COM components using GUIDs. These identifiers are often the key to understanding hidden runtime dependencies.</p>
+
+      <h2>What Is a COM GUID?</h2>
+      <p>A GUID, or Globally Unique Identifier, uniquely identifies a COM class, interface or component. Windows uses this identifier to locate and instantiate the registered component.</p>
+
+      <h2>Example</h2>
+      <p>A VB6 executable may contain a reference such as:</p>
+      <p><code>{648A5600-2C6E-101B-82B6-000000000014}</code></p>
+      <p>While this value is meaningful to Windows, it is not immediately obvious to a developer or system administrator.</p>
+
+      <h2>Why GUIDs Matter</h2>
+      <p>When a COM component is missing or not registered correctly, the application may fail even if the required file exists somewhere on disk.</p>
+      <p>The Windows Registry links the GUID to the actual component file. If that link is missing or broken, the application cannot create the required object.</p>
+
+      <h2>Troubleshooting Benefits</h2>
+      <p>By resolving embedded GUIDs, it becomes possible to:</p>
+      <ul>
+        <li>Identify hidden dependencies</li>
+        <li>Detect missing COM registrations</li>
+        <li>Understand application runtime requirements</li>
+        <li>Simplify deployment and migration activities</li>
+      </ul>
+
+      <h2>Legacy Software Reality</h2>
+      <p>Many VB6 applications developed over the last twenty years rely heavily on COM technologies. Understanding GUID references is often essential when maintaining or migrating legacy software.</p>
+
+      <h2>Conclusion</h2>
+      <p>GUID analysis provides visibility into dependencies that are otherwise difficult to discover. It remains an important technique when maintaining legacy VB6, COM and ActiveX-based applications.</p>
+
+      <div class="card">
+        <p><strong>Legacy Runtime Inspector</strong> includes embedded COM GUID analysis to help identify hidden runtime dependencies in legacy Windows applications.</p>
+        <p><a href="../index.html">Download Legacy Runtime Inspector</a> · <a href="index.html">Back to Knowledge Base</a></p>
+      </div>
+    </article>
+
+    <footer class="footer">Copyright © NFC LegacyForge Lab - 1998/2026</footer>
+  </main>
+</body>
+</html>

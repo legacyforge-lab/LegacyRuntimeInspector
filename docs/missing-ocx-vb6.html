@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Find Missing OCX Files in a VB6 Application</title>
+  <meta name="description" content="Learn how to identify missing OCX files, ActiveX controls and runtime dependencies in a Visual Basic 6 application.">
+  <style>
+    :root { --navy:#0f2a44; --teal:#00a8b8; --text:#1f2933; --muted:#5f6b7a; --bg:#ffffff; --soft:#f5f7fa; --border:#e5e7eb; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.65; }
+    .container { max-width:900px; margin:0 auto; padding:36px 22px 60px; }
+    .topbar { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .brand { font-weight:800; color:var(--navy); text-decoration:none; font-size:1.1rem; }
+    .nav a { margin-left:16px; color:var(--teal); text-decoration:none; font-weight:700; }
+    h1,h2,h3 { color:var(--navy); line-height:1.2; }
+    h1 { font-size:2.15rem; margin-top:34px; }
+    h2 { margin-top:38px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+    .lead { color:var(--muted); font-size:1.15rem; }
+    .card { background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:22px; margin:24px 0; }
+    a { color:var(--teal); font-weight:700; }
+    code { background:var(--soft); padding:2px 5px; border-radius:4px; }
+    .footer { margin-top:50px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); text-align:center; font-size:0.95rem; }
+    @media (max-width:640px) { .topbar { display:block; } .nav { margin-top:12px; } .nav a { margin-left:0; margin-right:14px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="brand" href="../index.html">Legacy Runtime Inspector</a>
+      <nav class="nav">
+        <a href="index.html">Knowledge Base</a>
+        <a href="../index.html">Home</a>
+      </nav>
+    </header>
+
+    <article>
+      <h1>How to Find Missing OCX Files in a VB6 Application</h1>
+      <p class="lead">One of the most common problems when deploying a legacy Visual Basic 6 application is the classic “Component not correctly registered” error.</p>
+
+      <p>The application works perfectly on the original machine but fails immediately on another PC. In many cases, the real problem is a missing OCX dependency or an ActiveX control that is present but not correctly registered.</p>
+
+      <h2>Why It Happens</h2>
+      <p>VB6 applications often depend on external ActiveX controls such as:</p>
+      <ul>
+        <li><code>MSCOMCTL.OCX</code></li>
+        <li><code>MSFLXGRD.OCX</code></li>
+        <li><code>TABCTL32.OCX</code></li>
+        <li><code>COMDLG32.OCX</code></li>
+        <li><code>GAUGE32.OCX</code></li>
+      </ul>
+      <p>These components may not be present on a new system or may not be properly registered in Windows.</p>
+
+      <h2>Traditional Troubleshooting</h2>
+      <p>The traditional approach usually involves installing multiple OCX files manually, registering them with <code>REGSVR32</code>, and repeating the process until the application starts.</p>
+      <p>This trial-and-error method is slow, unreliable and risky, especially on production or industrial PCs.</p>
+
+      <h2>A Better Approach</h2>
+      <p>A dependency scanner can inspect the executable and identify:</p>
+      <ul>
+        <li>Referenced OCX files</li>
+        <li>DLL dependencies</li>
+        <li>Embedded COM GUIDs</li>
+        <li>Registered and missing components</li>
+      </ul>
+      <p>This allows you to determine the real cause before attempting deployment.</p>
+
+      <h2>Typical Example</h2>
+      <p>A VB6 application starts correctly on an old Windows XP machine but fails on a newer Windows system. Inspection reveals that <code>GAUGE32.OCX</code> is referenced by the executable but is not installed or registered on the target machine.</p>
+      <p>After installing and registering the required component, the application starts successfully.</p>
+
+      <h2>Conclusion</h2>
+      <p>Before reinstalling random OCX files, analyze the executable first. Identifying missing dependencies early can save hours of troubleshooting and reduce deployment risks for legacy software.</p>
+
+      <div class="card">
+        <p><strong>Legacy Runtime Inspector</strong> helps detect missing OCX files, DLL dependencies, COM registration issues and embedded GUID references in legacy Windows applications.</p>
+        <p><a href="../index.html">Download Legacy Runtime Inspector</a> · <a href="index.html">Back to Knowledge Base</a></p>
+      </div>
+    </article>
+
+    <footer class="footer">Copyright © NFC LegacyForge Lab - 1998/2026</footer>
+  </main>
+</body>
+</html>
