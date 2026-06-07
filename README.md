@@ -37,11 +37,14 @@ It is particularly useful for:
 
 ---
 
-## Technical Articles
+## Knowledge Base
 
 - How to Find Missing OCX Files in a VB6 Application
 - Why a VB6 Application Works on One PC but Not Another
 - Understanding COM GUIDs in Legacy VB6 Applications
+
+Read the complete documentation:
+https://legacyforge-lab.github.io/LegacyRuntimeInspector/docs/
 
 ---
 
