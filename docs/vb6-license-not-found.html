@@ -67,7 +67,7 @@ regsvr32 control.ocx
       <h3>Design-Time</h3>
       <p>Design-time support is required to open forms inside the VB6 IDE.</p>
       <p>Some commercial ActiveX controls require additional license information stored in the Windows Registry.</p>
-      <p>Without that license information, the OCX may be registered, but VB6 will still refuse to load the control in design mode.</p>
+      <p>Without that license information, the OCX may be present and correctly registered, but VB6 will still refuse to load the control in design mode.</p>
       <h2>Real Case</h2>
       <p>A legacy VB6 project used Sheridan 3D controls:</p>
       <pre><code>
@@ -79,7 +79,7 @@ THREED32.OCX
       <pre><code>
 license not found
 </code></pre>
-      <p>and refused to load controls such as SSPanel.</p>
+      <p>and refused to load controls such as <code>SSPanel</code>.</p>
       <h2>Root Cause</h2>
       <p>The design-time license keys stored under:</p>
       <pre><code>
@@ -92,18 +92,67 @@ THREED32.OCX
 THREED32.OCA
 </code></pre>
       <p>The missing component was the registry license information required by the VB6 IDE.</p>
+      <h2>Practical Diagnostic Procedure</h2>
+      <p>When VB6 reports:</p>
+      <pre><code>
+license not found
+</code></pre>
+      <p>and the OCX is already present and correctly registered, check the design-time license registry entries.</p>
+      <p>On a known working development machine:</p>
+      <ol>
+        <li>Open <code>REGEDIT</code>.</li>
+        <li>Navigate to:</li>
+      </ol>
+      <pre><code>
+HKEY_CLASSES_ROOT\Licenses
+</code></pre>
+      <ol>
+        <li>Look for license entries related to the affected ActiveX controls.</li>
+        <li>Export the relevant license keys to a <code>.reg</code> file.</li>
+      </ol>
+      <p>On the target machine:</p>
+      <ol>
+        <li>Open <code>REGEDIT</code>.</li>
+        <li>Navigate to:</li>
+      </ol>
+      <pre><code>
+HKEY_CLASSES_ROOT\Licenses
+</code></pre>
+      <ol>
+        <li>Verify whether the same license entries exist.</li>
+        <li>If the user owns a valid license for the component, import the missing <code>.reg</code> file.</li>
+        <li>Restart Visual Basic 6.</li>
+        <li>Reopen the project.</li>
+      </ol>
+      <p>In many cases, the OCX itself is not the problem.</p>
+      <p>The missing part is the design-time license metadata stored in the Windows Registry.</p>
+      <h2>Important Licensing Note</h2>
+      <p>Commercial ActiveX controls may require a valid development license.</p>
+      <p>Registry license entries should only be exported and imported when the user legitimately owns the corresponding software license.</p>
+      <p>This procedure should not be used to bypass third-party licensing restrictions.</p>
+      <h2>Why REGSVR32 Is Not Enough</h2>
+      <p><code>REGSVR32</code> registers the COM component.</p>
+      <p>It does not necessarily install:</p>
+      <ul>
+        <li>design-time license keys;</li>
+        <li>vendor-specific registry metadata;</li>
+        <li>development environment integration;</li>
+        <li>supporting files required by the original installer.</li>
+      </ul>
+      <p>This is why copying and registering an OCX can be enough for runtime execution but still fail when opening forms in the VB6 IDE.</p>
       <h2>Resolution</h2>
-      <p>The correct resolution is to install the original licensed component package whenever available.</p>
-      <p>If a known working development machine exists, the relevant license registry entries may be compared and documented.</p>
-      <p>Important: commercial ActiveX controls may be licensed software. License information should only be restored when the user owns the appropriate license.</p>
+      <p>The safest resolution is to install the original licensed component package whenever available.</p>
+      <p>If a known working development machine exists, the relevant license registry entries can be compared and documented.</p>
+      <p>After restoring the missing license entries, VB6 can usually load the affected controls correctly.</p>
       <h2>Lessons Learned</h2>
-      <p>License not found does not mean the same thing as OCX not registered.</p>
+      <p><code>License not found</code> does not mean the same thing as <code>OCX not registered</code>.</p>
       <p>These are different failure modes:</p>
       <ul>
         <li>OCX missing</li>
         <li>OCX present but not registered</li>
         <li>OCX registered but missing design-time license</li>
         <li>OCX registered but incompatible with the project reference</li>
+        <li>OCX registered but dependent on vendor-specific registry metadata</li>
       </ul>
       <p>Each one requires a different fix.</p>
       <h2>Recommendation</h2>
@@ -114,8 +163,20 @@ THREED32.OCA
         <li>Missing registered path</li>
         <li>Type library version mismatch</li>
         <li>Possible design-time license issue</li>
+        <li>Missing vendor-specific metadata</li>
       </ul>
       <p>This distinction is especially important when maintaining or migrating legacy VB6 applications that depend on commercial ActiveX controls.</p>
+      <h2>Future Legacy Runtime Inspector Feature</h2>
+      <p>A future version of Legacy Runtime Inspector could add a dedicated check for VB6 design-time issues by comparing:</p>
+      <ul>
+        <li>detected ActiveX controls;</li>
+        <li>COM registration;</li>
+        <li>registered file path;</li>
+        <li>type library version;</li>
+        <li>possible license entries under <code>HKEY_CLASSES_ROOT\Licenses</code>;</li>
+        <li>project references stored in <code>.vbp</code> files.</li>
+      </ul>
+      <p>This would help explain cases where a control appears installed but still cannot be loaded by the VB6 IDE.</p>
     </article>
 
     <div class="card">
