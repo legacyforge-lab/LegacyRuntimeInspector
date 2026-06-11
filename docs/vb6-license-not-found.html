@@ -1,4 +1,129 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>vb6-license-not-found</title></head>
-<body><pre># Understanding "License Not Found" Errors in VB6 ActiveX Controls
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Understanding &quot;License Not Found&quot; Errors in VB6 ActiveX Controls - Legacy Runtime Inspector</title>
+  <meta name="description" content="Learn the difference between runtime registration and design-time licensing in legacy VB6 applications.">
+  <style>
+    :root { --navy:#0f2a44; --teal:#00a8b8; --text:#1f2933; --muted:#5f6b7a; --bg:#ffffff; --soft:#f5f7fa; --border:#e5e7eb; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.65; }
+    .container { max-width:980px; margin:0 auto; padding:36px 22px 60px; }
+    .topbar { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .brand { font-weight:800; color:var(--navy); text-decoration:none; font-size:1.1rem; }
+    .nav a { margin-left:16px; color:var(--teal); text-decoration:none; font-weight:700; }
+    .hero { padding:34px 0 18px; }
+    .subtitle { font-size:1.12rem; color:var(--muted); max-width:780px; }
+    h1,h2,h3 { color:var(--navy); line-height:1.25; }
+    h1 { font-size:2.15rem; margin-bottom:12px; }
+    h2 { margin-top:38px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+    h3 { margin-top:26px; }
+    a { color:var(--teal); font-weight:700; }
+    code { background:#eef2f5; padding:2px 5px; border-radius:4px; }
+    pre { background:#0f2a44; color:#f8fafc; padding:16px; border-radius:10px; overflow:auto; }
+    pre code { background:transparent; color:inherit; padding:0; }
+    blockquote { margin:18px 0; padding:12px 18px; border-left:5px solid var(--teal); background:#f2fbfc; color:var(--text); }
+    .card { background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:22px; margin:28px 0; }
+    .footer { margin-top:50px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); text-align:center; font-size:0.95rem; }
+    .back { margin-top:28px; }
+    @media (max-width:640px) { .topbar { display:block; } .nav { margin-top:12px; } .nav a { margin-left:0; margin-right:14px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="brand" href="../index.html">Legacy Runtime Inspector</a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Knowledge Base</a>
+        <a href="../index.html#download">Download</a>
+      </nav>
+    </header>
 
-Explains runtime vs design-time licensing and common VB6 ActiveX issues.</pre></body></html>
+    <section class="hero">
+      <h1>Understanding &quot;License Not Found&quot; Errors in VB6 ActiveX Controls</h1>
+      <p class="subtitle">Learn the difference between runtime registration and design-time licensing in legacy VB6 applications.</p>
+    </section>
+
+    <article>
+      <h2>The Symptom</h2>
+      <p>After resolving missing OCX registration issues, Visual Basic 6 may still display errors such as:</p>
+      <pre><code>
+Cannot load control SSPanel1; license not found.
+Cannot load control PnlHeader; license not found.
+Cannot load control PnlFooter; license not found.
+</code></pre>
+      <p>Many developers assume the OCX is still missing or not registered.</p>
+      <p>In reality, this is a different problem.</p>
+      <h2>Runtime vs Design-Time</h2>
+      <p>VB6 ActiveX controls can have two separate requirements.</p>
+      <h3>Runtime</h3>
+      <p>Runtime registration is required to execute an application.</p>
+      <p>This is usually handled with:</p>
+      <pre><code>
+regsvr32 control.ocx
+</code></pre>
+      <p>If the application only needs to run, this may be enough.</p>
+      <h3>Design-Time</h3>
+      <p>Design-time support is required to open forms inside the VB6 IDE.</p>
+      <p>Some commercial ActiveX controls require additional license information stored in the Windows Registry.</p>
+      <p>Without that license information, the OCX may be registered, but VB6 will still refuse to load the control in design mode.</p>
+      <h2>Real Case</h2>
+      <p>A legacy VB6 project used Sheridan 3D controls:</p>
+      <pre><code>
+THREED32.OCX
+</code></pre>
+      <p>The OCX file was copied from a working machine and registered successfully.</p>
+      <p>The compiled application could run.</p>
+      <p>However, the VB6 IDE still displayed:</p>
+      <pre><code>
+license not found
+</code></pre>
+      <p>and refused to load controls such as SSPanel.</p>
+      <h2>Root Cause</h2>
+      <p>The design-time license keys stored under:</p>
+      <pre><code>
+HKEY_CLASSES_ROOT\Licenses
+</code></pre>
+      <p>were missing.</p>
+      <p>Copying these files was not sufficient:</p>
+      <pre><code>
+THREED32.OCX
+THREED32.OCA
+</code></pre>
+      <p>The missing component was the registry license information required by the VB6 IDE.</p>
+      <h2>Resolution</h2>
+      <p>The correct resolution is to install the original licensed component package whenever available.</p>
+      <p>If a known working development machine exists, the relevant license registry entries may be compared and documented.</p>
+      <p>Important: commercial ActiveX controls may be licensed software. License information should only be restored when the user owns the appropriate license.</p>
+      <h2>Lessons Learned</h2>
+      <p>License not found does not mean the same thing as OCX not registered.</p>
+      <p>These are different failure modes:</p>
+      <ul>
+        <li>OCX missing</li>
+        <li>OCX present but not registered</li>
+        <li>OCX registered but missing design-time license</li>
+        <li>OCX registered but incompatible with the project reference</li>
+      </ul>
+      <p>Each one requires a different fix.</p>
+      <h2>Recommendation</h2>
+      <p>A diagnostic tool should distinguish between:</p>
+      <ul>
+        <li>Missing OCX file</li>
+        <li>Missing COM registration</li>
+        <li>Missing registered path</li>
+        <li>Type library version mismatch</li>
+        <li>Possible design-time license issue</li>
+      </ul>
+      <p>This distinction is especially important when maintaining or migrating legacy VB6 applications that depend on commercial ActiveX controls.</p>
+    </article>
+
+    <div class="card">
+      <p><strong>Related tool:</strong> Legacy Runtime Inspector helps identify missing OCX files, DLL dependencies, COM registration issues and embedded GUID references in legacy VB6, COM and ActiveX applications.</p>
+      <p class="back"><a href="index.html">← Back to Knowledge Base</a></p>
+    </div>
+
+    <footer class="footer">Copyright © NFC LegacyForge Lab - 1998/2026</footer>
+  </main>
+</body>
+</html>

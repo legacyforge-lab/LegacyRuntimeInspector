@@ -1,4 +1,116 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>mscomctl-could-not-be-loaded</title></head>
-<body><pre># Why VB6 Reports "MSCOMCTL.OCX Could Not Be Loaded" Even After Registration
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why VB6 Reports &quot;MSCOMCTL.OCX Could Not Be Loaded&quot; Even After Registration - Legacy Runtime Inspector</title>
+  <meta name="description" content="A real-world troubleshooting case showing why a registered ActiveX control may still fail to load inside the VB6 IDE.">
+  <style>
+    :root { --navy:#0f2a44; --teal:#00a8b8; --text:#1f2933; --muted:#5f6b7a; --bg:#ffffff; --soft:#f5f7fa; --border:#e5e7eb; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.65; }
+    .container { max-width:980px; margin:0 auto; padding:36px 22px 60px; }
+    .topbar { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .brand { font-weight:800; color:var(--navy); text-decoration:none; font-size:1.1rem; }
+    .nav a { margin-left:16px; color:var(--teal); text-decoration:none; font-weight:700; }
+    .hero { padding:34px 0 18px; }
+    .subtitle { font-size:1.12rem; color:var(--muted); max-width:780px; }
+    h1,h2,h3 { color:var(--navy); line-height:1.25; }
+    h1 { font-size:2.15rem; margin-bottom:12px; }
+    h2 { margin-top:38px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+    h3 { margin-top:26px; }
+    a { color:var(--teal); font-weight:700; }
+    code { background:#eef2f5; padding:2px 5px; border-radius:4px; }
+    pre { background:#0f2a44; color:#f8fafc; padding:16px; border-radius:10px; overflow:auto; }
+    pre code { background:transparent; color:inherit; padding:0; }
+    blockquote { margin:18px 0; padding:12px 18px; border-left:5px solid var(--teal); background:#f2fbfc; color:var(--text); }
+    .card { background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:22px; margin:28px 0; }
+    .footer { margin-top:50px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); text-align:center; font-size:0.95rem; }
+    .back { margin-top:28px; }
+    @media (max-width:640px) { .topbar { display:block; } .nav { margin-top:12px; } .nav a { margin-left:0; margin-right:14px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="brand" href="../index.html">Legacy Runtime Inspector</a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Knowledge Base</a>
+        <a href="../index.html#download">Download</a>
+      </nav>
+    </header>
 
-Real-world VB6 troubleshooting article covering registration, typelib version mismatches and VBP Object references.</pre></body></html>
+    <section class="hero">
+      <h1>Why VB6 Reports &quot;MSCOMCTL.OCX Could Not Be Loaded&quot; Even After Registration</h1>
+      <p class="subtitle">A real-world troubleshooting case showing why a registered ActiveX control may still fail to load inside the VB6 IDE.</p>
+    </section>
+
+    <article>
+      <h2>Overview</h2>
+      <p>A common assumption is that when Visual Basic 6 reports:</p>
+      <blockquote>MSCOMCTL.OCX could not be loaded</blockquote>
+      <p>the OCX is simply missing or not registered.</p>
+      <p>In practice, the root cause can be more subtle.</p>
+      <p>During the migration of a legacy industrial VB6 application to a clean Windows 7 virtual machine, the project failed to load even though MSCOMCTL.OCX had been copied and registered successfully using REGSVR32.</p>
+      <h2>Investigation</h2>
+      <p>The original control was copied from a known working machine.</p>
+      <p>The following steps were performed:</p>
+      <ol>
+        <li>Unregister the existing `MSCOMCTL.OCX`</li>
+        <li>Remove the file</li>
+        <li>Copy the original OCX from the production machine</li>
+        <li>Register it using `REGSVR32`</li>
+        <li>Reopen the VB6 project</li>
+      </ol>
+      <p>The project still reported:</p>
+      <blockquote>MSCOMCTL.OCX could not be loaded</blockquote>
+      <p>At first sight, the OCX appeared to be present and registered correctly.</p>
+      <h2>VBP Reference Check</h2>
+      <p>The VB6 project file contained an object reference similar to:</p>
+      <pre><code>
+Object={831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.1#0; MSCOMCTL.OCX
+</code></pre>
+      <p>This means that the project was not only looking for a file named MSCOMCTL.OCX.</p>
+      <p>It was also expecting a specific ActiveX type library version.</p>
+      <h2>Root Cause</h2>
+      <p>The issue was not simple COM registration.</p>
+      <p>VB6 requires the ActiveX control version expected by the project.</p>
+      <p>Even when two files share the same filename:</p>
+      <pre><code>
+MSCOMCTL.OCX
+</code></pre>
+      <p>they may expose different type library versions or binary compatibility information.</p>
+      <p>A runtime-compatible version is not always sufficient for design-time loading inside the VB6 IDE.</p>
+      <h2>Lessons Learned</h2>
+      <p>When diagnosing VB6 ActiveX loading failures:</p>
+      <ul>
+        <li>Do not assume registration is the only problem.</li>
+        <li>Verify the exact OCX file version.</li>
+        <li>Check the `Object=` entries stored in the `.vbp` file.</li>
+        <li>Compare the type library version required by the project.</li>
+        <li>Compare the OCX against a known working development machine.</li>
+        <li>Use the original development OCX whenever possible.</li>
+      </ul>
+      <h2>Recommendation</h2>
+      <p>A diagnostic tool should report:</p>
+      <ul>
+        <li>File existence</li>
+        <li>COM registration status</li>
+        <li>Registered path</li>
+        <li>File version</li>
+        <li>Type library version</li>
+        <li>Required version from the VB6 project file</li>
+        <li>Possible design-time compatibility warnings</li>
+      </ul>
+      <p>This would significantly reduce troubleshooting time during legacy VB6 migrations.</p>
+    </article>
+
+    <div class="card">
+      <p><strong>Related tool:</strong> Legacy Runtime Inspector helps identify missing OCX files, DLL dependencies, COM registration issues and embedded GUID references in legacy VB6, COM and ActiveX applications.</p>
+      <p class="back"><a href="index.html">← Back to Knowledge Base</a></p>
+    </div>
+
+    <footer class="footer">Copyright © NFC LegacyForge Lab - 1998/2026</footer>
+  </main>
+</body>
+</html>

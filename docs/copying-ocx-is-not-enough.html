@@ -1,4 +1,140 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>copying-ocx-is-not-enough</title></head>
-<body><pre># Why Copying an OCX from a Working Machine Is Not Always Enough
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why Copying an OCX from a Working Machine Is Not Always Enough - Legacy Runtime Inspector</title>
+  <meta name="description" content="Discover why copying and registering an OCX may still fail due to COM metadata, licenses and version mismatches.">
+  <style>
+    :root { --navy:#0f2a44; --teal:#00a8b8; --text:#1f2933; --muted:#5f6b7a; --bg:#ffffff; --soft:#f5f7fa; --border:#e5e7eb; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; color:var(--text); background:var(--bg); line-height:1.65; }
+    .container { max-width:980px; margin:0 auto; padding:36px 22px 60px; }
+    .topbar { display:flex; justify-content:space-between; gap:18px; align-items:center; padding-bottom:24px; border-bottom:1px solid var(--border); }
+    .brand { font-weight:800; color:var(--navy); text-decoration:none; font-size:1.1rem; }
+    .nav a { margin-left:16px; color:var(--teal); text-decoration:none; font-weight:700; }
+    .hero { padding:34px 0 18px; }
+    .subtitle { font-size:1.12rem; color:var(--muted); max-width:780px; }
+    h1,h2,h3 { color:var(--navy); line-height:1.25; }
+    h1 { font-size:2.15rem; margin-bottom:12px; }
+    h2 { margin-top:38px; padding-bottom:10px; border-bottom:1px solid var(--border); }
+    h3 { margin-top:26px; }
+    a { color:var(--teal); font-weight:700; }
+    code { background:#eef2f5; padding:2px 5px; border-radius:4px; }
+    pre { background:#0f2a44; color:#f8fafc; padding:16px; border-radius:10px; overflow:auto; }
+    pre code { background:transparent; color:inherit; padding:0; }
+    blockquote { margin:18px 0; padding:12px 18px; border-left:5px solid var(--teal); background:#f2fbfc; color:var(--text); }
+    .card { background:var(--soft); border:1px solid var(--border); border-radius:12px; padding:22px; margin:28px 0; }
+    .footer { margin-top:50px; padding-top:24px; border-top:1px solid var(--border); color:var(--muted); text-align:center; font-size:0.95rem; }
+    .back { margin-top:28px; }
+    @media (max-width:640px) { .topbar { display:block; } .nav { margin-top:12px; } .nav a { margin-left:0; margin-right:14px; } }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <a class="brand" href="../index.html">Legacy Runtime Inspector</a>
+      <nav class="nav">
+        <a href="../index.html">Home</a>
+        <a href="index.html">Knowledge Base</a>
+        <a href="../index.html#download">Download</a>
+      </nav>
+    </header>
 
-Explains why COM registration, typelib information and licenses matter.</pre></body></html>
+    <section class="hero">
+      <h1>Why Copying an OCX from a Working Machine Is Not Always Enough</h1>
+      <p class="subtitle">Discover why copying and registering an OCX may still fail due to COM metadata, licenses and version mismatches.</p>
+    </section>
+
+    <article>
+      <h2>The Common Migration Strategy</h2>
+      <p>When moving a VB6 application to another computer, developers often follow a simple process:</p>
+      <ol>
+        <li>Copy the OCX from a working machine.</li>
+        <li>Place it in `System32`, `SysWOW64` or the application folder.</li>
+        <li>Register it using `REGSVR32`.</li>
+        <li>Reopen the application or VB6 project.</li>
+      </ol>
+      <p>Sometimes this works.</p>
+      <p>Sometimes it does not.</p>
+      <h2>What Is Missing?</h2>
+      <p>Many ActiveX controls depend on more than the OCX file itself.</p>
+      <p>Possible dependencies include:</p>
+      <ul>
+        <li>COM registry entries</li>
+        <li>Type library registration</li>
+        <li>Design-time license keys</li>
+        <li>Additional DLL dependencies</li>
+        <li>Vendor-specific installation entries</li>
+        <li>Binary compatibility information</li>
+        <li>Correct 32-bit or 64-bit registration</li>
+      </ul>
+      <p>For VB6 applications, this is even more important because the IDE is a 32-bit application and expects 32-bit ActiveX components.</p>
+      <h2>Example</h2>
+      <p>A legacy VB6 project using:</p>
+      <pre><code>
+MSCOMCTL.OCX
+THREED32.OCX
+</code></pre>
+      <p>was migrated to a clean virtual machine.</p>
+      <p>Both files were copied and registered.</p>
+      <p>The result was:</p>
+      <pre><code>
+MSCOMCTL.OCX could not be loaded
+</code></pre>
+      <p>followed by:</p>
+      <pre><code>
+license not found
+</code></pre>
+      <p>for multiple controls.</p>
+      <p>The issue was not simple file availability.</p>
+      <p>The issue was missing or incompatible metadata stored elsewhere in the operating system.</p>
+      <h2>Why It Happens</h2>
+      <p>An OCX file is only one part of the ActiveX environment.</p>
+      <p>VB6 may also depend on:</p>
+      <ul>
+        <li>the exact version referenced by the `.vbp` file;</li>
+        <li>the registered type library version;</li>
+        <li>the original development license;</li>
+        <li>registry keys created by the vendor installer;</li>
+        <li>additional files required by the control.</li>
+      </ul>
+      <p>This explains why copying a file from a working machine can still fail.</p>
+      <h2>Best Practice</h2>
+      <p>Instead of copying individual files blindly:</p>
+      <ul>
+        <li>Use the original vendor installer whenever available.</li>
+        <li>Preserve or document exact OCX versions.</li>
+        <li>Check the `.vbp` `Object=` references.</li>
+        <li>Register 32-bit controls using the 32-bit `REGSVR32`.</li>
+        <li>Verify design-time licenses for commercial controls.</li>
+        <li>Compare a working development machine with the target machine.</li>
+        <li>Keep a technical inventory of all legacy dependencies.</li>
+      </ul>
+      <p>For 32-bit VB6 components on 64-bit Windows, the correct registration command usually uses:</p>
+      <pre><code>
+C:\Windows\SysWOW64\regsvr32.exe C:\Windows\SysWOW64\CONTROL.OCX
+</code></pre>
+      <h2>Future Tooling</h2>
+      <p>A dependency scanner should identify:</p>
+      <ul>
+        <li>ActiveX controls</li>
+        <li>COM registration status</li>
+        <li>Registered paths</li>
+        <li>Missing dependencies</li>
+        <li>Type library version mismatches</li>
+        <li>Possible design-time license issues</li>
+        <li>Differences between project references and installed components</li>
+      </ul>
+      <p>This is one of the motivations behind Legacy Runtime Inspector.</p>
+      <p>Legacy VB6 systems often fail not because the main executable is broken, but because the runtime environment around it has not been reconstructed correctly.</p>
+    </article>
+
+    <div class="card">
+      <p><strong>Related tool:</strong> Legacy Runtime Inspector helps identify missing OCX files, DLL dependencies, COM registration issues and embedded GUID references in legacy VB6, COM and ActiveX applications.</p>
+      <p class="back"><a href="index.html">← Back to Knowledge Base</a></p>
+    </div>
+
+    <footer class="footer">Copyright © NFC LegacyForge Lab - 1998/2026</footer>
+  </main>
+</body>
+</html>
